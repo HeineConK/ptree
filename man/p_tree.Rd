@@ -4,7 +4,14 @@
 \alias{p_tree}
 \title{A Tree Planner & Plotter}
 \usage{
-p_tree(nodes)
+p_tree(
+  nodes,
+  round = 2,
+  y_nudge = 0.025,
+  aspect_ratio = 1.2,
+  padding = unit(0.75, "lines"),
+  leaf_p_fontface = "bold"
+)
 }
 \description{
 Lay out a probability tree, then draw it using ggplot2
