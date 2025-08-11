@@ -3,6 +3,8 @@
 The `ptree` package makes it easy to draw probability trees in R. Turn this:
 
 ```r
+library("dplyr")
+
 nodes <- bind_rows(
   list(text = "A1", parent = 0, p = 1/2),
   list(text = "B1", parent = 1, p = 2/3),
@@ -34,15 +36,15 @@ Then `ptree` lays out the tree. It computes *x*- and *y*-coordinates for the nod
 A helper function can also do the work of drawing the tree for you, if you don't want to bother with the calls to ggplot2 yourself. This:
 
 ```r
-nodes <- compute_tree(nodes)
-draw_tree(nodes)
+tree <- compute_tree(nodes)
+draw_tree(tree)
 ```
 
 is short for this:
 
 ```r
-nodes <- compute_tree(nodes)
-ggplot(nodes) + theme_void() +
+tree <- compute_tree(nodes)
+ggplot(tree) + theme_void() +
   xlim(0,1) + ylim(0,1) +
   geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) +  
   geom_label(aes(x = x, y = y, label = text), label.size = NA) +
