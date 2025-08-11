@@ -10,7 +10,7 @@
 draw_tree <- function(nodes, padding = ggplot2::unit(.75, "lines"), leaf_p_fontface = "bold") {
 
   if ("numeric" %in% class(padding)) {
-    padding <- unit(padding, "lines")
+    padding <- ggplot2::unit(padding, "lines")
   }
 
   p <- ggplot2::ggplot(nodes) +
