@@ -9,13 +9,13 @@
 
 draw_tree <- function(nodes, padding = ggplot2::unit(.75, "lines"), leaf_p_fontface = "bold") {
 
-  if (class(padding) == "numeric") {
+  if ("numeric" %in% class(padding)) {
     padding <- unit(padding, "lines")
   }
 
   p <- ggplot2::ggplot(nodes) +
-    ggplot2::geom_segment(aes(x = x, y = y, xend = xend, yend = yend)) +
-    ggplot2::geom_label(aes(x = x, y = y, label = text), label.size = NA, label.padding = padding) +
+    ggplot2::geom_segment( ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
+    ggplot2::geom_label( ggplot2::aes(x = x, y = y, label = text), label.size = NA, label.padding = padding) +
     ggplot2::theme_void() + ggplot2::ylim(0, 1)
 
   if ("p" %in% colnames(nodes)) {
