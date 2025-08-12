@@ -31,8 +31,11 @@ compute_tree <- function(nodes, round = 2, y_nudge = .025, aspect_ratio = 1.2) {
   nodes <- place_leaf_ps(nodes)
   nodes <- flip_vertical(nodes, y_nudge)
 
-  if (("leaf_p" %in% colnames(nodes)) & !is.character(nodes$leaf_p) & round) {
-    nodes$leaf_p <- round(nodes$leaf_p, round)
+  if("leaf_p" %in% colnames(nodes)){
+    if(!is.character(nodes$leaf_p) & round){
+      nodes$leaf_p <- round(nodes$leaf_p, round)
+
+    }
   }
 
   return(nodes)
