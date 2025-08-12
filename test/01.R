@@ -14,5 +14,9 @@ nodes <- bind_rows(
   list(text = "C5", parent = 9, p = 1/2)
 )
 
+nodes$leaf_p <- NA
+nodes$leaf_p[c(3, 5, 8,10,11)] <- 0.2
+
+
 tree <- compute_tree(nodes)
 draw_tree(tree)
