@@ -2,7 +2,7 @@ library("testthat")
 library("dplyr")
 
 test_that("compute_tree and draw_tree are working",{
-  nodes <- bind_rows(
+  nodes_orig <- bind_rows(
     list(text = "A1", parent = 0, p = 1/2),
     list(text = "B1", parent = 1, p = 2/3),
     list(text = "C1", parent = 2, p = 1  ),
@@ -16,7 +16,7 @@ test_that("compute_tree and draw_tree are working",{
     list(text = "C5", parent = 9, p = 1/2)
   )
 
-  tree <- compute_tree(nodes)
+  tree <- compute_tree(nodes_orig)
   expect_s3_class(tree, "data.frame" )
   expect_true(nrow(tree) > 0)
 

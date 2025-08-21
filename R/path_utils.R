@@ -93,7 +93,7 @@ as.data.frame.path <- function(p, ...){
     text = character( Ne ),
     parent = rep(0, Ne),
     p = numeric( Ne ),
-    id = character( Ne )
+    node_id = character( Ne )
   )
 
   for(i in 1:Ne){
@@ -101,13 +101,13 @@ as.data.frame.path <- function(p, ...){
     d$text[ i ] <- ifelse(is.null( e$node_child$text), paste0("_", e$node_child$id, "_"), e$node_child$text)
     d$parent[ i ] <- ifelse( e$is_root_edge, 0, which( e$node_parent$id == ids ))
     d$p[ i ] <- e$prob
-    d$id[ i ] <- e$node_child$id
+    d$node_id[ i ] <- e$node_child$id
   }
 
-  if(length(setdiff(ids, d$id)) > 0){
+  if(length(setdiff(ids, d$node_id)) > 0){
     ids_miss <- character()
     for(id in ids){
-      if(! id %in% d$id){
+      if(! id %in% d$node_id){
         ids_miss <- c( ids_miss, id )
       }
     }

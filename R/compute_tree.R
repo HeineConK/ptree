@@ -9,6 +9,12 @@
 
 compute_tree <- function(nodes, round = 2, y_nudge = .025, aspect_ratio = 1.2) {
 
+  if(!is.data.frame(nodes)){
+    if(class(nodes) == "path"){
+      nodes <- as.data.frame( nodes )
+    }
+  }
+
   if ( !("id" %in% colnames(nodes)) ) {
     nodes$id <- 1:nrow(nodes)
   } else {
