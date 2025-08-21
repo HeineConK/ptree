@@ -13,7 +13,7 @@ add_node <- function(path, node = NULL, id = NULL, text = NULL){
 }
 
 #' @export add_edge
-add_edge <- function( path, node_parent = NULL, id_parent = NULL, node_child = NULL, id_child = NULL, prob = 0){
+add_edge <- function( path, id_parent = NULL, id_child = NULL, prob = 0, node_parent = NULL,  node_child = NULL){
   np <- if( !is.null(node_parent)){
     node_parent
   }else if(!is.null(id_parent)){
@@ -48,12 +48,13 @@ add_edge <- function( path, node_parent = NULL, id_parent = NULL, node_child = N
 }
 
 #' @export add_root_edge
-add_root_edge <- function( path, node_child = NULL, id_child = NULL, prob = 0){
+add_root_edge <- function( path, id_child = NULL, prob = 0, node_child = NULL){
 
   nc <- if( !is.null(node_child)){
     node_child
   }else if(!is.null(id_child)){
-    stopifnot( id_child %in% names(path$nodes))
+    ids <- sapply(path$nodes, function(n) n$id)
+    stopifnot( id_child %in% ids)
     path$nodes[[ id_child ]]
   }else{
     stop("No valid child node object or child node ID provided.")
@@ -87,8 +88,9 @@ as.data.frame.path <- function(p, ...){
 
   edges <- p$edges
   Ne <- length( edges)
+  ids_parents  <- sapply(p$edges, function(e) e$node_parent$id)
+  ids_children <- sapply(p$edges, function(e) e$node_child$id)
   ids <- sapply(p$nodes, function(n) n$id)
-
   d <- data.frame(
     text = character( Ne ),
     parent = rep(0, Ne),
@@ -98,8 +100,9 @@ as.data.frame.path <- function(p, ...){
 
   for(i in 1:Ne){
     e <- edges[[i]]
-    d$text[ i ] <- ifelse(is.null( e$node_child$text), paste0("_", e$node_child$id, "_"), e$node_child$text)
-    d$parent[ i ] <- ifelse( e$is_root_edge, 0, which( e$node_parent$id == ids ))
+    # d$text[ i ] <- ifelse(is.null( e$node_child$text), paste0("_", e$node_child$id, "_"), e$node_child$text)
+    d$text[ i ] <- ifelse(is.null( e$node_child$text), e$node_child$id, e$node_child$text)
+    d$parent[ i ] <- ifelse( e$is_root_edge, 0, which( e$node_parent$id == ids_children ))
     d$p[ i ] <- e$prob
     d$node_id[ i ] <- e$node_child$id
   }
