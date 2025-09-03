@@ -13,7 +13,7 @@ test_that("path diagram for dice roll outcomes is created", {
 
       for(j in 1:6){
         id_ij <- paste(i,j,sep = ".")
-        print( id_ij )
+        # print( id_ij )
         p <- add_node(p, id = id_ij, text = j)
         p <- add_edge(p, id_parent = as.character(i), id_child = id_ij, prob = 1/6)
       }
