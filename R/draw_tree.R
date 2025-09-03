@@ -7,7 +7,7 @@
 #' @examples
 #' draw_tree(nodes)
 
-draw_tree <- function(nodes, padding = ggplot2::unit(.75, "lines"), leaf_p_fontface = "bold") {
+draw_tree <- function(nodes, padding = text_padding_default(), leaf_p_fontface = "bold") {
 
   if ("numeric" %in% class(padding)) {
     padding <- ggplot2::unit(padding, "lines")
@@ -35,3 +35,14 @@ draw_tree <- function(nodes, padding = ggplot2::unit(.75, "lines"), leaf_p_fontf
   return(p)
 }
 
+text_padding <- function(x, units = "lines"){
+  ggplot2::unit(x, units)
+}
+
+text_padding_default <- function(){
+  text_padding( x = 0.75, units = "lines" )
+}
+
+text_padding_none <- function(){
+  text_padding( x = 0.00, units = "lines" )
+}
