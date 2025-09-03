@@ -13,7 +13,8 @@ ids <- c(
     "C5"
   )
 
-path_nodes <- lapply(ids, function(id) path_node(id))
+# path_nodes <- lapply(ids, function(id) path_node(id))
+path_nodes <- path_nodes( ids )
 
 p <- path(path_nodes)
 p <- p %>%

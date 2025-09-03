@@ -1,3 +1,32 @@
+path_nodes <- function(ids = NULL, texts = NULL){
+
+  # checks
+  ids_inull <- is.null( ids )
+  texts_inull <- is.null( texts )
+
+  if( ids_inull ){
+    stop("No node ids given.")
+  }
+
+  if(!ids_inull & !texts_inull ){
+    if(length( ids) != length( texts )){
+      stop("Node ids and node texts have different lengths.")
+    }
+  }
+
+  n <- length( ids )
+  if( texts_inull ) texts <- rep(NULL, n)
+
+  nodes <- lapply(1:n, function(i){
+    id <- ids[ i ]
+    txt <- texts[ i ]
+    path_node(id = id, text = txt)
+  })
+
+  return( nodes )
+}
+
+
 #' @export
 add_node <- function(path, node = NULL, id = NULL, text = NULL){
   if(!is.null(node)){
