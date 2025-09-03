@@ -21,6 +21,8 @@ test_that("computing and drawing trees from path object works",{
   nodes <- as.data.frame(p)
 
   expect_s3_class( compute_tree( nodes ), "data.frame")
-  expect_no_failure( draw_tree( compute_tree( nodes)) )
+  expect_no_failure(
+    draw_tree( compute_tree( nodes))
+  )
   expect_no_failure( draw_tree( compute_tree( p)) )
 })

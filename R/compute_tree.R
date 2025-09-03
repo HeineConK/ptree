@@ -24,7 +24,7 @@ col_id_tier <- function(nodes){
 #' @examples
 #' compute_tree(nodes, 2, .05, 1.4)
 
-compute_tree <- function(nodes, round = 2, y_nudge = .025, aspect_ratio = 1.2, compute_leaf_probs = TRUE) {
+compute_tree <- function(nodes, round = 2, y_nudge = 0, aspect_ratio = 1.2, compute_leaf_probs = TRUE) {
 
   nodes <- col_id_tier(nodes)
 
