@@ -13,7 +13,7 @@ place_labels <- function(nodes, y_nudge, aspect_ratio) {
 
   dx <- nodes$x - nodes$xend
   dy <- nodes$y - nodes$yend
-  nodes$p_angle <- atan2(dy, dx) * 180 / pi / aspect_ratio
+  nodes$p_angle <- 1.15 * atan2(dy, dx) * 180 / pi / aspect_ratio
 
   return(nodes)
 }
