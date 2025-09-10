@@ -4,7 +4,14 @@
 \alias{plot.path}
 \title{S3 plot function for a given path object}
 \usage{
-\method{plot}{path}(path, ...)
+\method{plot}{path}(
+  path,
+  round = 2,
+  y_nudge = 0,
+  aspect_ratio = 1.2,
+  compute_leaf_probs = TRUE,
+  ...
+)
 }
 \arguments{
 \item{path}{Path object to be plotted}

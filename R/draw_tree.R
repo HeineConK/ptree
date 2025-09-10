@@ -82,7 +82,8 @@ draw_tree <- function(nodes, padding = text_padding_default(), leaf_p_fontface =
   if ("leaf_p" %in% colnames(nodes)) {
 
     if (show_leaf_probs ) {
-      leaves <- nodes[nodes$tier == max(nodes$tier), ]
+      # leaves <- nodes[nodes$tier == max(nodes$tier), ]
+      leaves <- nodes[ nodes$is_leaf, ]
       leaves$leaf_p[is.na(leaves$leaf_p)] <- ""
       p <- p + ggplot2::geom_text(ggplot2::aes(x = leaf_p_x, y = leaf_p_y, label = leaf_p),
                          data = leaves, fontface = leaf_p_fontface) +

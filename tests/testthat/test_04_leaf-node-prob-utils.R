@@ -41,7 +41,7 @@ test_that("leaf probability computations works", {
   )
 })
 
-test_that("leaf prbability is correclty invoked in compute tree",{
+test_that("leaf probability is correclty invoked in compute tree",{
   p <- path()
   p <- add_node(p, id = "A")
   p <- add_node(p, id = "B")
@@ -67,3 +67,47 @@ test_that("leaf prbability is correclty invoked in compute tree",{
   )
 
 })
+
+
+
+test_that("leaf probabilities are correclty computed at different tiers", {
+  n_s1 <- path_node(id = "s1", text = "AoS")
+  n_n1 <- path_node(id = "n1", text = "bar(AoS)")
+
+
+
+  path1 <- path() %>%
+    add_root_edge(node_child = n_s1, prob =  1/52, prob_str = "1/52") %>%
+    add_root_edge(node_child = n_n1, prob = 51/52, prob_str = "51/52")
+
+
+  expect_s3_class(path1, "path")
+
+  expect_no_failure( compute_tree( path1 ) )
+
+  n_s2 <- path_node(id = "s2", text = "A")
+  n_n2 <- path_node(id = "n2", text = "bar(A)")
+
+
+  path2 <- path1 %>%
+    add_edge(path = .,
+             node_parent = n_n1,
+             node_child = n_s2,
+             prob = 1/51,
+             prob_str = "1/51") %>%
+    add_edge(path = .,
+             node_parent = n_n1,
+             node_child = n_n2,
+             prob = 50/51,
+             prob_str = "50/51")
+
+
+
+
+
+
+
+
+})
+
+

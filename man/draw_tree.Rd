@@ -4,7 +4,12 @@
 \alias{draw_tree}
 \title{A Probability Tree Plotter}
 \usage{
-draw_tree(nodes, padding = text_padding_default(), leaf_p_fontface = "bold")
+draw_tree(
+  nodes,
+  padding = text_padding_default(),
+  leaf_p_fontface = "bold",
+  show_leaf_probs = TRUE
+)
 }
 \description{
 Draw a probability tree using ggplot2
