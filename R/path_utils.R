@@ -43,7 +43,7 @@ add_node <- function(path, node = NULL, id = NULL, text = NULL){
 }
 
 #' @export add_edge
-add_edge <- function( path, id_parent = NULL, id_child = NULL, prob = 0, node_parent = NULL,  node_child = NULL){
+add_edge <- function( path, id_parent = NULL, id_child = NULL, prob = 0, prob_str = NULL, node_parent = NULL,  node_child = NULL){
   np <- if( !is.null(node_parent)){
     node_parent
   }else if(!is.null(id_parent)){
@@ -70,6 +70,7 @@ add_edge <- function( path, id_parent = NULL, id_child = NULL, prob = 0, node_pa
     node_child  = nc,
     edge_id = paste0(np$id, "-", nc$id),
     prob = prob,
+    prob_str = prob_str,
     is_root_edge = FALSE
   )
   class(e) <- "edge"
@@ -78,7 +79,7 @@ add_edge <- function( path, id_parent = NULL, id_child = NULL, prob = 0, node_pa
 }
 
 #' @export add_root_edge
-add_root_edge <- function( path, id_child = NULL, prob = 0, node_child = NULL){
+add_root_edge <- function( path, id_child = NULL, prob = 0, prob_str = NULL, node_child = NULL){
 
   nc <- if( !is.null(node_child)){
     node_child
@@ -99,6 +100,7 @@ add_root_edge <- function( path, id_child = NULL, prob = 0, node_child = NULL){
     node_child  = nc,
     edge_id = paste0("-", nc$id),
     prob = prob,
+    prob_str = prob_str,
     is_root_edge = TRUE
   )
   class(e) <- "edge"
@@ -125,6 +127,7 @@ as.data.frame.path <- function(p, ...){
     text = character( Ne ),
     parent = rep(0, Ne),
     p = numeric( Ne ),
+    p_str = character( Ne ),
     node_id = character( Ne )
   )
 
@@ -134,6 +137,7 @@ as.data.frame.path <- function(p, ...){
     d$text[ i ] <- ifelse(is.null( e$node_child$text), e$node_child$id, e$node_child$text)
     d$parent[ i ] <- ifelse( e$is_root_edge, 0, which( e$node_parent$id == ids_children ))
     d$p[ i ] <- e$prob
+    d$p_str[ i ] <- ifelse(!is.null(e$prob_str), e$prob_str, NA)
     d$node_id[ i ] <- e$node_child$id
   }
 

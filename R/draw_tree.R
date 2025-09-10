@@ -13,6 +13,23 @@ draw_tree <- function(nodes, padding = text_padding_default(), leaf_p_fontface =
     padding <- text_padding(padding)
   }
 
+  # if nodes df is built by hand, like in the readme example, prob strings might be missing
+  # Thus add dummy column here
+  if (!"p_str" %in% colnames(nodes)){
+    nodes$p_str <- NA
+  }
+
+  # helper column containing probability labels
+  nodes$prob_label_text <- sapply(1:nrow(nodes), function(i){
+    if (!is.na(nodes$p_str[ i ])) {
+      nodes$p_str[ i ]
+    } else {
+      nodes$p[ i ]
+    }
+  })
+
+
+
   p <- ggplot2::ggplot(nodes) +
     ggplot2::geom_segment( ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
     ggplot2::geom_label( ggplot2::aes(x = x, y = y, label = text), label.size = NA, label.padding = padding) +
@@ -56,7 +73,8 @@ draw_tree <- function(nodes, padding = text_padding_default(), leaf_p_fontface =
       p <- p + ggplot2::geom_polygon(data = reci, ggplot2::aes(x,y), fill = "white", color = "black")
     }
 
-    p <- p + ggplot2::geom_text(ggplot2::aes(x = p_x, y = p_y, label = p, angle = p_angle))
+    p <- p + ggplot2::geom_text(ggplot2::aes(x = p_x, y = p_y, label = prob_label_text, angle = p_angle))
+
   }
 
   if ("leaf_p" %in% colnames(nodes)) {
