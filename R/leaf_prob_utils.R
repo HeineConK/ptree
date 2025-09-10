@@ -4,7 +4,14 @@ compute_leaf_probs <- function(nodes, log = FALSE){
   nodes <- col_id_tier( nodes )
 
   max_tier <- max( nodes$tier )
-  # nodes$is_leaf <- nodes$tier == max_tier
+  nodes$is_leaf <- nodes$tier == max_tier
+
+  for (i in 1:nrow(nodes)) {
+    if ( nodes$is_leaf[i] ) next
+    if ( !i %in% nodes$parent ) nodes$is_leaf[ i ] <- TRUE
+  }
+
+
   nodes$leaf_p <- NA
 
   il <- which( nodes$is_leaf )
