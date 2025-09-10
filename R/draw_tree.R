@@ -7,7 +7,7 @@
 #' @examples
 #' draw_tree(nodes)
 
-draw_tree <- function(nodes, padding = text_padding_default(), leaf_p_fontface = "bold") {
+draw_tree <- function(nodes, padding = text_padding_default(), leaf_p_fontface = "bold", show_leaf_probs = TRUE) {
 
   if ("numeric" %in% class(padding)) {
     padding <- text_padding(padding)
@@ -32,7 +32,7 @@ draw_tree <- function(nodes, padding = text_padding_default(), leaf_p_fontface =
 
   p <- ggplot2::ggplot(nodes) +
     ggplot2::geom_segment( ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
-    ggplot2::geom_label( ggplot2::aes(x = x, y = y, label = text), label.size = NA, label.padding = padding) +
+    ggplot2::geom_label( ggplot2::aes(x = x, y = y, label = text), label.size = NA, label.padding = padding, parse = TRUE) +
     ggplot2::theme_void() + ggplot2::ylim(0, 1)
 
   # add probabilty labels to edges
@@ -77,12 +77,17 @@ draw_tree <- function(nodes, padding = text_padding_default(), leaf_p_fontface =
 
   }
 
+
+
   if ("leaf_p" %in% colnames(nodes)) {
-    leaves <- nodes[nodes$tier == max(nodes$tier), ]
-    leaves$leaf_p[is.na(leaves$leaf_p)] <- ""
-    p <- p + ggplot2::geom_text(ggplot2::aes(x = leaf_p_x, y = leaf_p_y, label = leaf_p),
-                       data = leaves, fontface = leaf_p_fontface) +
-      ggplot2::xlim(0, 1.2)
+
+    if (show_leaf_probs ) {
+      leaves <- nodes[nodes$tier == max(nodes$tier), ]
+      leaves$leaf_p[is.na(leaves$leaf_p)] <- ""
+      p <- p + ggplot2::geom_text(ggplot2::aes(x = leaf_p_x, y = leaf_p_y, label = leaf_p),
+                         data = leaves, fontface = leaf_p_fontface) +
+        ggplot2::xlim(0, 1.2)
+    }
   } else {
     p <- p + ggplot2::xlim(0, 1)
   }
