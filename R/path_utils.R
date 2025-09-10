@@ -1,3 +1,4 @@
+#' @export
 path_nodes <- function(ids = NULL, texts = NULL){
 
   # checks
