@@ -75,6 +75,10 @@ add_edge <- function( path, id_parent = NULL, id_child = NULL, prob = 0, prob_st
   )
   class(e) <- "edge"
   path$edges[[ e$edge_id ]] <- e
+
+  if ( !np$id %in% sapply(path$nodes, function( n ) n$id) ) path <- add_node( path, np)
+  if ( !nc$id %in% sapply(path$nodes, function( n ) n$id) ) path <- add_node( path, nc)
+
   return( path )
 }
 
@@ -105,6 +109,9 @@ add_root_edge <- function( path, id_child = NULL, prob = 0, prob_str = NULL, nod
   )
   class(e) <- "edge"
   path$edges[[ e$edge_id ]] <- e
+
+  if ( !nc$id %in% sapply(path$nodes, function( n ) n$id) ) path <- add_node( path, nc)
+
   return( path )
 }
 
