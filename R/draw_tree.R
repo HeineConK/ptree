@@ -32,7 +32,7 @@ draw_tree <- function(nodes, padding = text_padding_default(), leaf_p_fontface =
 
   p <- ggplot2::ggplot(nodes) +
     ggplot2::geom_segment( ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
-    ggplot2::geom_label( ggplot2::aes(x = x, y = y, label = text), label.size = NA, label.padding = padding, parse = TRUE) +
+    ggplot2::geom_label( ggplot2::aes(x = x, y = y, label = text), linewidth = NA, label.padding = padding, parse = TRUE) +
     ggplot2::theme_void() + ggplot2::ylim(0, 1)
 
   # add probabilty labels to edges
