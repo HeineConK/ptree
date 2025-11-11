@@ -37,5 +37,16 @@ ggsave(
   width = 5,
   height = 5,
   plot = plt,
-  device = svg
+  device = svg,
+  bg = "white"
 )
+
+ggsave(
+  filename = "img.export/tree.png",
+  width = 5,
+  height = 5,
+  plot = plt,
+  device = png,
+  bg = "white"
+)
+
