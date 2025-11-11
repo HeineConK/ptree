@@ -33,7 +33,7 @@ plt <- plot( p )
 plt
 
 ggsave(
-  filename = "img.export/test.svg",
+  filename = "img.export/tree.svg",
   width = 5,
   height = 5,
   plot = plt,

@@ -63,7 +63,7 @@ draw_tree( tree )
 
 into this:
 
-![](img/Tree.v0.0.3.png)
+![](img/Tree.v0.1.0.svg)
 
 It's intended for use with `ggplot2`, but can be used with other plotting systems too.
 

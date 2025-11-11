@@ -31,8 +31,17 @@ draw_tree <- function(nodes, padding = text_padding_default(), leaf_p_fontface =
 
 
   p <- ggplot2::ggplot(nodes) +
+    # add edges
     ggplot2::geom_segment( ggplot2::aes(x = x, y = y, xend = xend, yend = yend)) +
-    ggplot2::geom_label( ggplot2::aes(x = x, y = y, label = text), linewidth = NA, label.padding = padding, parse = TRUE) +
+
+    # node labels
+    ggplot2::geom_label( ggplot2::aes(x = x, y = y, label = text),
+                         linewidth = NA,
+                         label.padding = padding,
+                         parse = TRUE,,
+                         fill = "white") +
+
+    # themeing and viewport
     ggplot2::theme_void() + ggplot2::ylim(0, 1)
 
   # add probabilty labels to edges
@@ -68,11 +77,14 @@ draw_tree <- function(nodes, padding = text_padding_default(), leaf_p_fontface =
         )
     })
 
+    # add prob labels to edges, incl. tilted rectangles
+    # 1 for each rectangle:
     for(i in 1:nrow( nodes )){
       reci <- label_rects[[i]]
       p <- p + ggplot2::geom_polygon(data = reci, ggplot2::aes(x,y), fill = "white", color = "black")
     }
 
+    # 2 add prob labels
     p <- p + ggplot2::geom_text(ggplot2::aes(x = p_x, y = p_y, label = prob_label_text, angle = p_angle))
 
   }
@@ -103,7 +115,7 @@ text_padding <- function(x, units = "lines"){
 
 #' @export
 text_padding_default <- function(){
-  text_padding( x = 0.75, units = "lines" )
+  text_padding( x = 0.50, units = "lines" )
 }
 
 #' @export
